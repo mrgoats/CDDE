@@ -1,0 +1,24 @@
+{
+    "name": "cdk",
+    "version": "0.0.1",
+    "authors": [
+        "Douglas Ferreira"
+    ],
+    "description": "Editor",
+    "license": "MIT",
+    "homepage": "",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "angular": "^1.6.3",
+        "fabric": "^1.7.7",
+        "threejs": "*",
+        "angular-mocks": "^1.6.3"
+    }
+}

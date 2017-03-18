@@ -1,0 +1,14 @@
+{
+  "name": "tcc",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4"
+  }
+}
