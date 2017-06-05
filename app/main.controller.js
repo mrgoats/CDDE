@@ -1,32 +1,23 @@
 (function () {
 
-    "use strict";
+    'use strict';
 
     angular
-        .module("cdk")
-        .controller("mainController", mainController);
+        .module('cdde')
+        .controller('mainController', mainController);
 
-    mainController.$inject = ["$log"];
+    mainController.$inject = ['$log'];
 
     function mainController($log) {
 
         var vm = this;
 
-        vm.drawingDisabled = false;
+        vm.activate = activate;
 
-        vm.toggleDrawing = toggleDrawing;
-        vm.text = "test";
-
-        activate();
+        vm.activate();
 
         function activate() {
-            $log.info("OK");
-        };
-
-        function toggleDrawing() {
-            //vm.canvas.isDrawingMode = !vm.canvas.isDrawingMod;
-            vm.drawingDisabled = !vm.drawingDisabled;
-
+            $log.info('OK');
         };
 
     };

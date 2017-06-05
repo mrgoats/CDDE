@@ -1,1 +1,4 @@
-
+.view-element {
+    display: inline-block;
+    float: left;
+}

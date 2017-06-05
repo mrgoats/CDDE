@@ -1,7 +1,7 @@
 describe('Initial test suite', function () {
     var scope, $controller;
 
-    beforeEach(module('cdk'));
+    beforeEach(module('cdde'));
 
     beforeEach(inject(function ($rootScope, _$controller_) {
 
@@ -19,10 +19,5 @@ describe('Initial test suite', function () {
         expect($controller).toBeDefined();
     });
 
-    it('Should match the variables', function () {
-
-        expect($controller.text).toEqual('test');
-
-    });
 
 });

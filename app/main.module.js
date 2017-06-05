@@ -1,6 +1,6 @@
 (function () {
     "use strict";
 
-    angular.module("cdk", []);
+    angular.module("cdde", []);
 
 })();
