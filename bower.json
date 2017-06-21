@@ -17,8 +17,8 @@
     ],
     "dependencies": {
         "angular": "^1.6.4",
-        "fabric": "^1.7.9",
-        "threejs": "*",
+        "fabric": "^1.7.13",
+        "threejs": "latest",
         "angular-mocks": "^1.6.4"
     }
 }

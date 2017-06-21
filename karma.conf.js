@@ -11,12 +11,12 @@ module.exports = function (config) {
             'bower_components/fabric/dist/fabric.min.js',
             'bower_components/threejs/build/three.min.js',
 
-            'app/*.module.js',
-            'app/*.factory.js',
-            'app/*.service.js',
-            'app/*.controller.js',
+            'app/**/*.module.js',
+            'app/**/*.factory.js',
+            'app/**/*.service.js',
+            'app/**/*.controller.js',
 
-            'app/*.spec.js'
+            'app/**/*.spec.js'
 
         ],
         browsers: ['PhantomJS'],

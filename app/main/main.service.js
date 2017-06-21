@@ -12,11 +12,13 @@
 
         var vm = this;
 
-        vm.values;
+        vm.values = [];
 
         var service = {
-            getInfo: getInfo,
-            setInfo: setInfo
+
+            addForm: addForm,
+            getForms: getForms
+
         };
 
         return service;
@@ -28,16 +30,16 @@
         //            $log.info("OK");
         //        };
 
-        function getInfo() {
-            console.log('Return this: Hello');
+        function getForms() {
+
             return vm.values;
 
         };
 
-        function setInfo(values) {
-            //console.log('Take this away: Go');
-            // $log.info(canvas);
-            vm.values = values;
+        function addForm(obj) {
+
+            console.log(obj);
+            vm.values.push(obj);
 
 
         };

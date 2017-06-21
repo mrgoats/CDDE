@@ -14,7 +14,7 @@
 
         vm.db = 'Drawing';
         vm.canvas;
-        vm.modes = ['Pencil', 'Circle', 'Square'];
+        vm.modes = ['Pencil', 'Circle', 'Square', 'Triangle'];
         vm.drawingDisabled = true;
         vm.btnModeText = 'Enter drawing mode';
 
@@ -24,6 +24,7 @@
         vm.deleteObject = deleteObject;
         vm.addRect = addRect;
         vm.addCircle = addCircle;
+        vm.addTriangle = addTriangle;
         vm.createObject = createObject;
         vm.fabricStuff = fabricStuff;
 
@@ -82,8 +83,8 @@
 
         function addRect() {
             var opt = {
-                left: 100,
-                top: 100,
+                left: 280,
+                top: 175,
                 fill: 'black',
                 width: 20,
                 height: 20,
@@ -91,6 +92,7 @@
 
             var rect = fabricService.newRectangle(opt);
             vm.canvas.add(rect);
+            mainService.addForm(rect);
 
         };
 
@@ -98,10 +100,24 @@
             var circle = new fabric.Circle({
                 radius: 20,
                 fill: 'grey',
-                left: 100,
-                top: 100
+                left: 280,
+                top: 175
             });
             vm.canvas.add(circle);
+        };
+
+        function addTriangle() {
+
+            var triangle = new fabric.Triangle({
+                width: 20,
+                height: 30,
+                fill: 'blue',
+                left: 280,
+                top: 175
+            });
+
+            vm.canvas.add(triangle);
+
         };
 
         function createObject() {
@@ -115,16 +131,18 @@
                 vm.addCircle();
 
             } else {
-                $log.debug('nada');
+                vm.addTriangle();
             }
+
+            var objs = vm.canvas.getObjects();
+            console.log(objs);
 
         };
 
         function toggleDrawing() {
 
             vm.canvas.isDrawingMode = !vm.canvas.isDrawingMode;
-            //$log.debug(JSON.stringify(vm.canvas));
-            //console.log(vm.canvas._objects[0]);
+
             vm.drawingDisabled = !vm.drawingDisabled;
 
             if (vm.canvas.isDrawingMode) {
@@ -132,8 +150,6 @@
             } else {
                 vm.btnModeText = 'Enter drawing mode';
             }
-
-            //mainService.setInfo(vm.canvas);
 
         };
 

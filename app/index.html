@@ -8,7 +8,7 @@
 
     <title>CDD Editor</title>
 
-    <link rel="stylesheet" href="main.style.css" />
+    <link rel="stylesheet" href="main/main.style.css" />
 
 </head>
 
@@ -16,7 +16,7 @@
 
     <div class="view-element" id="drawing" ng-controller="drawingController as vm" ng-keypress="vm.deleteObject($event)">
         <p>{{vm.db}}</p>
-        <canvas style="border: 2px solid;" height="485" width="632" id="board" ng-keyup="vm.deleteObject()"></canvas>
+        <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keyup="vm.deleteObject()"></canvas>
         <li style="margin-top:10px;">
             <label for="drawing-mode-selector">Mode:</label>
 
@@ -31,14 +31,16 @@
             <button id="drawing-mode" class="btn btn-info" ng-click="vm.toggleDrawing()">{{vm.btnModeText}}</button>
 
             <div ng-show="vm.drawingTool === 'Pencil'" id="drawing-mode-options">
-                <br/>
-                <label for="drawing-line-width">Line width:</label>
-                <input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
-                <label for="drawing-color">Line color:</label>
-                <input type="color" value="#005E7A" id="drawing-color">
-                <br/>
-                <label for="drawing-shadow-width">Line shadow width:</label>
-                <input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
+                <!--
+<br/>
+<label for="drawing-line-width">Line width:</label>
+<input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
+<label for="drawing-color">Line color:</label>
+<input type="color" value="#005E7A" id="drawing-color">
+<br/>
+<label for="drawing-shadow-width">Line shadow width:</label>
+<input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
+-->
             </div>
         </li>
     </div>
@@ -54,19 +56,19 @@
 
     <script type="text/javascript" src="../libs/OrbitControls.js"></script>
 
-    <script type="text/javascript" src="main.module.js"></script>
+    <script type="text/javascript" src="main/main.module.js"></script>
 
-    <script type="text/javascript" src="fabric.factory.js"></script>
-    <script type="text/javascript" src="fabric.service.js"></script>
+    <script type="text/javascript" src="drawing/fabric.factory.js"></script>
+    <script type="text/javascript" src="drawing/fabric.service.js"></script>
 
-    <script type="text/javascript" src="three.factory.js"></script>
-    <script type="text/javascript" src="three.service.js"></script>
+    <script type="text/javascript" src="rendering/three.factory.js"></script>
+    <script type="text/javascript" src="rendering/three.service.js"></script>
 
-    <script type="text/javascript" src="main.controller.js"></script>
-    <script type="text/javascript" src="drawing.controller.js"></script>
-    <script type="text/javascript" src="rendering.controller.js"></script>
+    <script type="text/javascript" src="main/main.controller.js"></script>
+    <script type="text/javascript" src="drawing/drawing.controller.js"></script>
+    <script type="text/javascript" src="rendering/rendering.controller.js"></script>
 
-    <script type="text/javascript" src="main.service.js"></script>
+    <script type="text/javascript" src="main/main.service.js"></script>
 
 </body>
 
