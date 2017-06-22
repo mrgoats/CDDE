@@ -177,18 +177,13 @@
             // Create a MeshFaceMaterial, which allows the cube to have different materials on each face 
             var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
 
-            var i = 0;
-            for (i; i < vm.shapes.length; i++) {
-                var cube = new THREE.Mesh(geometry, cubeMaterial);
+            var cube = new THREE.Mesh(geometry, cubeMaterial);
 
-                var positX = vm.shapes[i].left;
-                var positY = vm.shapes[i].top;
+            var i = 1;
 
-                cube.position.set(0 - i, 0.5, 0 + i);
+            cube.position.set(0, 0.5, 0);
 
-                vm.scene.add(cube);
-
-            };
+            vm.scene.add(cube);
 
         };
 
@@ -210,13 +205,31 @@
 
         function addObject() {
 
+            for (var i = vm.scene.children.length - 1; i > 0; i--) {
+                var obj = vm.scene.children[i];
+                vm.scene.remove(obj);
+            }
+
             vm.setShapes();
 
-            vm.addBox();
+            var i = 0;
 
-            vm.addCylinder();
+            for (i; i < vm.shapes.length; i++) {
 
-            vm.addPrism();
+                if (vm.shapes[i].isType('rect')) {
+
+                    vm.addBox();
+                } else if (vm.shapes[i].isType('circle')) {
+
+                    vm.addCylinder();
+
+                } else {
+
+                    vm.addPrism();
+
+                }
+
+            }
 
         };
 

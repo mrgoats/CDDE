@@ -104,6 +104,7 @@
                 top: 175
             });
             vm.canvas.add(circle);
+            mainService.addForm(circle);
         };
 
         function addTriangle() {
@@ -117,6 +118,7 @@
             });
 
             vm.canvas.add(triangle);
+            mainService.addForm(triangle);
 
         };
 

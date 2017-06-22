@@ -22,13 +22,6 @@
         };
 
         return service;
-        //        var vm = this;
-        //
-        //        activate();
-        //
-        //        function activate() {
-        //            $log.info("OK");
-        //        };
 
         function getForms() {
 
@@ -38,9 +31,7 @@
 
         function addForm(obj) {
 
-            console.log(obj);
             vm.values.push(obj);
-
 
         };
 
