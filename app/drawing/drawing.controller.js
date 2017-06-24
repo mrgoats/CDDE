@@ -27,6 +27,7 @@
         vm.addTriangle = addTriangle;
         vm.createObject = createObject;
         vm.fabricSetup = fabricSetup;
+        vm.downloadImage = downloadImage;
 
         vm.activate();
 
@@ -131,6 +132,19 @@
             } else {
                 vm.btnModeText = 'Enter drawing mode';
             }
+
+        };
+
+        function downloadImage() {
+
+            vm.canvas.isDrawingMode = false;
+
+            if (!window.localStorage) {
+                alert("This function is not supported by your browser.");
+                return;
+            }
+            // to PNG
+            window.open(vm.canvas.toDataURL('png'));
 
         };
 

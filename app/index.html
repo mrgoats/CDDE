@@ -4,6 +4,20 @@
 <head>
 
     <meta charset="utf-8" />
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="../libs/Skeleton-2.0.4/css/normalize.css">
+    <link rel="stylesheet" href="../libs/Skeleton-2.0.4/css/skeleton.css">
+
     <link rel="icon" type="image/png" href="../img/pen.png">
 
     <title>CDDE</title>
@@ -14,42 +28,49 @@
 
 <body ng-controller="mainController as app">
 
-    <div class="view-element" id="drawing" ng-controller="drawingController as vm" ng-keypress="vm.deleteObject($event)">
-        <p>{{vm.db}}</p>
-        <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keyup="vm.deleteObject()"></canvas>
-        <div style="margin-top:10px;">
-            <label for="drawing-mode-selector">Mode:</label>
+    <div class="row">
+        <div class="six columns view-element" id="drawing" ng-controller="drawingController as vm" ng-keypress="vm.deleteObject($event)">
+            <p>{{vm.db}}</p>
+            <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keyup="vm.deleteObject()"></canvas>
 
+            <label for="drawing-mode-selector">Mode:</label>
             <select id="drawing-mode-selector" ng-model="vm.drawingTool" ng-options="item for item in vm.modes" ng-change=""></select>
 
-            <button ng-hide="vm.drawingTool === 'Pencil'" ng-click="vm.createObject()"> + </button>
+            <button class="button-primary" ng-hide="vm.drawingTool === 'Pencil'" ng-click="vm.createObject()">Add</button>
 
             <button ng-click="vm.clear()">Clear</button>
 
             <button ng-click="vm.deleteObject()">Delete Selected</button>
 
             <button id="drawing-mode" class="btn btn-info" ng-click="vm.toggleDrawing()">{{vm.btnModeText}}</button>
+            <button ng-click="vm.downloadImage()">Export as image</button>
 
-            <button ng-click="app.downloadJSON()">Export Project</button>
-            <div ng-show="vm.drawingTool === 'Pencil'" id="drawing-mode-options">
-                <!--
-<br/>
-<label for="drawing-line-width">Line width:</label>
-<input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
-<label for="drawing-color">Line color:</label>
-<input type="color" value="#005E7A" id="drawing-color">
-<br/>
-<label for="drawing-shadow-width">Line shadow width:</label>
-<input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
+            <!--
+<div ng-show="vm.drawingTool === 'Pencil'" id="drawing-mode-options">
+
+    <br/>
+    <label for="drawing-line-width">Line width:</label>
+    <input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
+    <label for="drawing-color">Line color:</label>
+    <input type="color" value="#005E7A" id="drawing-color">
+    <br/>
+    <label for="drawing-shadow-width">Line shadow width:</label>
+    <input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
+
+</div>
 -->
-            </div>
         </div>
+
+        <div class="six columns view-element" id="rendering" ng-controller="renderingController as vm">
+            <p>{{vm.rd}}</p>
+            <div id="3dCanvas" style="margin-bottom:5px"></div>
+            <button class="button-primary" ng-click="vm.addObject()">Transform</button>
+        </div>
+
     </div>
 
-    <div class="view-element" id="rendering" ng-controller="renderingController as vm">
-        <p>{{vm.rd}}</p>
-        <div id="3dCanvas" style="margin-bottom:5px"></div>
-        <button ng-click="vm.addObject()">Add</button>
+    <div class="row">
+        <button ng-click="app.downloadJSON()">Export Project</button>
     </div>
 
     <script type="text/javascript" src="../bower_components/angular/angular.min.js"></script>
