@@ -1,4 +1,9 @@
 .view-element {
     display: inline-block;
     float: left;
+    margin-left: 15px;
+}
+
+#3dCanvas {
+    margin-bottom: 10px;
 }
