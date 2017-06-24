@@ -6,18 +6,18 @@
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="../img/pen.png">
 
-    <title>CDD Editor</title>
+    <title>CDDE</title>
 
     <link rel="stylesheet" href="main/main.style.css" />
 
 </head>
 
-<body ng-controller="mainController as vm">
+<body ng-controller="mainController as app">
 
     <div class="view-element" id="drawing" ng-controller="drawingController as vm" ng-keypress="vm.deleteObject($event)">
         <p>{{vm.db}}</p>
         <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keyup="vm.deleteObject()"></canvas>
-        <li style="margin-top:10px;">
+        <div style="margin-top:10px;">
             <label for="drawing-mode-selector">Mode:</label>
 
             <select id="drawing-mode-selector" ng-model="vm.drawingTool" ng-options="item for item in vm.modes" ng-change=""></select>
@@ -30,6 +30,7 @@
 
             <button id="drawing-mode" class="btn btn-info" ng-click="vm.toggleDrawing()">{{vm.btnModeText}}</button>
 
+            <button ng-click="app.downloadJSON()">Export Project</button>
             <div ng-show="vm.drawingTool === 'Pencil'" id="drawing-mode-options">
                 <!--
 <br/>
@@ -42,11 +43,12 @@
 <input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
 -->
             </div>
-        </li>
+        </div>
     </div>
 
     <div class="view-element" id="rendering" ng-controller="renderingController as vm">
         <p>{{vm.rd}}</p>
+        <div id="3dCanvas" style="margin-bottom:5px"></div>
         <button ng-click="vm.addObject()">Add</button>
     </div>
 

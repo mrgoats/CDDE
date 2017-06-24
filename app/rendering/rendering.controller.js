@@ -16,7 +16,7 @@
         vm.shapes = [];
 
         vm.activate = activate;
-        vm.threeStuff = threeStuff;
+        vm.threeSetup = threeSetup;
         vm.addObject = addObject;
         vm.addBox = addBox;
         vm.addCylinder = addCylinder;
@@ -27,33 +27,25 @@
 
         function activate() {
             $log.info('Activated - Rendering');
-            vm.threeStuff();
+            vm.threeSetup();
         };
 
-        function threeStuff() {
+        function threeSetup() {
 
             // Create a scene which will hold all our meshes to be rendered
-            var scene = new THREE.Scene();
+            var scene = threeService.newScene();
             vm.scene = scene;
 
-            // Create and position a camera
-            var camera = new THREE.PerspectiveCamera(
-                60, // Field of view
-                window.innerWidth / window.innerHeight, // Aspect ratio
-                0.1, // Near clipping pane
-                1000 // Far clipping pane
-            );
+            var camera = threeService.newCamera();
 
+            vm.camera = camera;
             // Reposition the camera
-            camera.position.set(-5, 5, 0);
+            camera.position.set(0, 5, 5);
 
             // Point the camera at a given coordinate
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-            // Create a renderer
-            var renderer = new THREE.WebGLRenderer({
-                antialias: true
-            });
+            var renderer = threeService.newRenderer();
 
             // Size should be the same as the window
             //renderer.setSize(window.innerWidth, window.innerHeight);
@@ -62,22 +54,16 @@
             // Set a near white clear color (default is black)
             renderer.setClearColor(0xfff6e6);
 
-            var container = document.getElementById('rendering');
-            document.body.appendChild(container);
+            var container = document.getElementById('3dCanvas');
 
             // Append to the document
-            document.body.appendChild(renderer.domElement);
+            container.appendChild(renderer.domElement);
 
             // A mesh is created from the geometry and material, then added to the scene
-            var plane = new THREE.Mesh(
-                new THREE.PlaneGeometry(5, 5, 5, 5),
-                new THREE.MeshBasicMaterial({
-                    color: 0x393839,
-                    wireframe: true
-                })
-            );
+            var plane = threeService.newMesh();
 
             plane.rotateX(Math.PI / 2);
+
             scene.add(plane);
 
             // Render the scene/camera combination
@@ -85,7 +71,7 @@
 
             // Add an orbit control which allows us to move around the scene. See the three.js example for more details
             // https://github.com/mrdoob/three.js/blob/dev/examples/js/controls/OrbitControls.
-            var controls = new THREE.OrbitControls(camera, renderer.domElement);
+            var controls = threeService.newControls(camera, renderer);
             /*
             controls.addEventListener('change', function () {
                 renderer.render(scene, camera);
@@ -108,124 +94,76 @@
 
             vm.shapes = mainService.getForms();
 
-            console.log("SHAPES");
-            console.log(vm.shapes);
+        };
+
+        function addPrism(x, y) {
+
+            this.x = x - 280;
+            this.y = y - 175;
+
+            var prism = threeService.newPrism();
+
+            prism.position.set(this.x / 64, 0.5, this.y / 64);
+            prism.rotateY(Math.PI);
+            vm.scene.add(prism);
 
         };
 
-        function addPrism() {
+        function addBox(x, y) {
 
-            var geometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 3);
-            var material = new THREE.MeshBasicMaterial({
-                color: 0xaa0cc0,
-                transparent: true,
-                opacity: 0.8,
-                side: THREE.DoubleSide
+            this.x = x - 280;
+            this.y = y - 175;
 
-            });
-            var cylinder = new THREE.Mesh(geometry, material);
+            var cube = threeService.newBox();
 
-            cylinder.position.set(1.75, 0.5, -1.75);
-            vm.scene.add(cylinder);
-
-        };
-
-        function addBox() {
-
-            var geometry = new THREE.BoxGeometry(1, 1, 1);
-
-            // CUBE
-            var cubeMaterials = [
-                        new THREE.MeshBasicMaterial({
-                    color: 0xff0000,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                        new THREE.MeshBasicMaterial({
-                    color: 0x00ff00,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                        new THREE.MeshBasicMaterial({
-                    color: 0x0000ff,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                        new THREE.MeshBasicMaterial({
-                    color: 0xffff00,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                        new THREE.MeshBasicMaterial({
-                    color: 0xff00ff,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                        new THREE.MeshBasicMaterial({
-                    color: 0x00ffff,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-            ];
-
-            // Create a MeshFaceMaterial, which allows the cube to have different materials on each face 
-            var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
-
-            var cube = new THREE.Mesh(geometry, cubeMaterial);
-
-            var i = 1;
-
-            cube.position.set(0, 0.5, 0);
+            cube.position.set(this.x / 64, 0.5, this.y / 64);
 
             vm.scene.add(cube);
 
         };
 
-        function addCylinder() {
-            var geometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
-            var material = new THREE.MeshBasicMaterial({
-                color: 0xaa8cc5,
-                transparent: true,
-                opacity: 0.8,
-                side: THREE.DoubleSide
+        function addCylinder(x, y) {
 
-            });
-            var cylinder = new THREE.Mesh(geometry, material);
+            this.x = x - 280;
+            this.y = y - 175;
 
-            cylinder.position.set(1.75, 0.5, 1.75);
+            var cylinder = threeService.newCylinder();
+
+            cylinder.position.set(this.x / 64, 0.5, this.y / 64);
             vm.scene.add(cylinder);
 
         };
 
         function addObject() {
 
-            for (var i = vm.scene.children.length - 1; i > 0; i--) {
+            //clear shapes in scene
+            var i = vm.scene.children.length - 1;
+
+            //ignore first element (plane) and remove shapes
+            for (i; i > 0; i--) {
                 var obj = vm.scene.children[i];
                 vm.scene.remove(obj);
             }
 
+            //get the current shapes on the board
             vm.setShapes();
 
+            //add the current shapes
             var i = 0;
 
             for (i; i < vm.shapes.length; i++) {
 
                 if (vm.shapes[i].isType('rect')) {
 
-                    vm.addBox();
+                    vm.addBox(vm.shapes[i].left, vm.shapes[i].top);
+
                 } else if (vm.shapes[i].isType('circle')) {
 
-                    vm.addCylinder();
+                    vm.addCylinder(vm.shapes[i].left, vm.shapes[i].top);
 
                 } else {
 
-                    vm.addPrism();
+                    vm.addPrism(vm.shapes[i].left, vm.shapes[i].top);
 
                 }
 

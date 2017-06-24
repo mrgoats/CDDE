@@ -26,7 +26,7 @@
         vm.addCircle = addCircle;
         vm.addTriangle = addTriangle;
         vm.createObject = createObject;
-        vm.fabricStuff = fabricStuff;
+        vm.fabricSetup = fabricSetup;
 
         vm.activate();
 
@@ -35,43 +35,22 @@
             $log.info('Activated - Drawing');
             vm.drawingTool = vm.modes[0];
 
-            vm.fabricStuff();
+            vm.fabricSetup();
         };
 
 
-        function fabricStuff() {
+        function fabricSetup() {
 
             vm.canvas = fabricService.newCanvas('board');
 
-            //vm.canvas = new fabric.Canvas('board');
             vm.canvas.isDrawingMode = false;
-
-            // create a rectangle object
-            //            var opt = {
-            //                left: 100,
-            //                top: 100,
-            //                fill: 'black',
-            //                width: 20,
-            //                height: 20
-            //            };
-            //            var rect = fabricService.newRectangle(opt);
-
-            //            var rect = new fabric.Rect({
-            //                left: 100,
-            //                top: 100,
-            //                fill: 'red',
-            //                width: 20,
-            //                height: 20
-            //            });
-
-            // 'add' rectangle onto canvas
-            //            vm.canvas.add(rect);
 
         };
 
         function clear() {
 
             vm.canvas.clear();
+            mainService.clear();
 
         };
 
@@ -85,7 +64,7 @@
             var opt = {
                 left: 280,
                 top: 175,
-                fill: 'black',
+                fill: 'blue',
                 width: 20,
                 height: 20,
             };
@@ -99,7 +78,7 @@
         function addCircle() {
             var circle = new fabric.Circle({
                 radius: 20,
-                fill: 'grey',
+                fill: '#aa8cc5',
                 left: 280,
                 top: 175
             });
@@ -110,9 +89,9 @@
         function addTriangle() {
 
             var triangle = new fabric.Triangle({
-                width: 20,
+                width: 30,
                 height: 30,
-                fill: 'blue',
+                fill: '#aa0cc0',
                 left: 280,
                 top: 175
             });

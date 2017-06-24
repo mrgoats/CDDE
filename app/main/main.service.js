@@ -17,7 +17,8 @@
         var service = {
 
             addForm: addForm,
-            getForms: getForms
+            getForms: getForms,
+            clear: clear
 
         };
 
@@ -32,6 +33,11 @@
         function addForm(obj) {
 
             vm.values.push(obj);
+
+        };
+
+        function clear() {
+            vm.values = [];
 
         };
 
