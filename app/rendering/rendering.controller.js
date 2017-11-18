@@ -88,7 +88,7 @@
 
             render();
 
-        };
+        }
 
         function setShapes() {
 
@@ -96,7 +96,7 @@
 
             console.log(vm.shapes);
 
-        };
+        }
 
         function addPrism(color, x, y) {
 
@@ -109,7 +109,7 @@
             prism.rotateY(Math.PI);
             vm.scene.add(prism);
 
-        };
+        }
 
         function addBox(color, x, y) {
 
@@ -122,7 +122,7 @@
 
             vm.scene.add(cube);
 
-        };
+        }
 
         function addCylinder(color, x, y) {
 
@@ -134,7 +134,7 @@
             cylinder.position.set(this.x / 64, 0.5, this.y / 64);
             vm.scene.add(cylinder);
 
-        };
+        }
 
         function addObject() {
 

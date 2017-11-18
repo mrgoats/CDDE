@@ -38,8 +38,7 @@
             vm.drawingTool = vm.modes[0];
 
             vm.fabricSetup();
-        };
-
+        }
 
         function fabricSetup() {
 
@@ -47,22 +46,23 @@
 
             vm.canvas.isDrawingMode = false;
 
-        };
+        }
 
         function clear() {
 
             vm.canvas.clear();
             mainService.clear();
 
-        };
+        }
 
         function deleteObject() {
 
             fabricService.removeFromCanvas(vm.canvas);
 
-        };
+        }
 
         function addRect(color) {
+
             var opt = {
                 left: 280,
                 top: 175,
@@ -75,7 +75,7 @@
             vm.canvas.add(rect);
             mainService.addForm(rect);
 
-        };
+        }
 
         function addCircle(color) {
             var circle = new fabric.Circle({
@@ -86,7 +86,7 @@
             });
             vm.canvas.add(circle);
             mainService.addForm(circle);
-        };
+        }
 
         function addTriangle(color) {
 
@@ -101,7 +101,7 @@
             vm.canvas.add(triangle);
             mainService.addForm(triangle);
 
-        };
+        }
 
         function createObject() {
 
@@ -120,7 +120,7 @@
             var objs = vm.canvas.getObjects();
             console.log(objs);
 
-        };
+        }
 
         function toggleDrawing() {
 
@@ -134,7 +134,7 @@
                 vm.btnModeText = 'Enter drawing mode';
             }
 
-        };
+        }
 
         function downloadImage() {
 
@@ -147,8 +147,8 @@
             // to PNG
             window.open(vm.canvas.toDataURL('png'));
 
-        };
+        }
 
-    };
+    }
 
 })();

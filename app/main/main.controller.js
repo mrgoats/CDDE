@@ -21,7 +21,7 @@
         function activate() {
             $log.info('OK - Main App');
 
-        };
+        }
 
         function download(text, name, type) {
             var a = document.createElement("a");
@@ -31,7 +31,7 @@
             a.href = URL.createObjectURL(file);
             a.download = name;
             a.click();
-        };
+        }
 
         function downloadJSON() {
 
@@ -41,9 +41,9 @@
 
             vm.download(jsonData, 'project.json', 'application/json');
 
-        };
+        }
 
-    };
+    }
 
 
 })();
