@@ -9,10 +9,6 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
     <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="../libs/Skeleton-2.0.4/css/normalize.css">
@@ -29,11 +25,12 @@
 <body ng-controller="mainController as app">
 
     <div class="row">
-        <div class="six columns view-element" id="drawing" ng-controller="drawingController as vm" ng-keypress="vm.deleteObject($event)">
+        <div class="six columns view-element" id="drawing" ng-controller="drawingController as vm" ng-keydown="vm.deleteObject($event)">
             <p>{{vm.db}}</p>
-            <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keyup="vm.deleteObject()"></canvas>
+            <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keydown="vm.deleteObject($event)"></canvas>
 
             <label for="drawing-mode-selector">Mode:</label>
+            <input value="submit input" type="color" name="favcolor" value="#ff0000" ng-model="vm.objectColor">
             <select id="drawing-mode-selector" ng-model="vm.drawingTool" ng-options="item for item in vm.modes" ng-change=""></select>
 
             <button class="button-primary" ng-hide="vm.drawingTool === 'Pencil'" ng-click="vm.createObject()">Add</button>
@@ -45,20 +42,6 @@
             <button id="drawing-mode" class="btn btn-info" ng-click="vm.toggleDrawing()">{{vm.btnModeText}}</button>
             <button ng-click="vm.downloadImage()">Export as image</button>
 
-            <!--
-<div ng-show="vm.drawingTool === 'Pencil'" id="drawing-mode-options">
-
-    <br/>
-    <label for="drawing-line-width">Line width:</label>
-    <input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
-    <label for="drawing-color">Line color:</label>
-    <input type="color" value="#005E7A" id="drawing-color">
-    <br/>
-    <label for="drawing-shadow-width">Line shadow width:</label>
-    <input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
-
-</div>
--->
         </div>
 
         <div class="six columns view-element" id="rendering" ng-controller="renderingController as vm">
@@ -73,9 +56,9 @@
         <button ng-click="app.downloadJSON()">Export Project</button>
     </div>
 
-    <script type="text/javascript" src="../bower_components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="../bower_components/threejs/build/three.min.js"></script>
-    <script type="text/javascript" src="../bower_components/fabric/dist/fabric.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../node_modules/three/build/three.min.js"></script>
+    <script type="text/javascript" src="../node_modules/fabric/dist/fabric.js"></script>
 
     <script type="text/javascript" src="../libs/OrbitControls.js"></script>
 

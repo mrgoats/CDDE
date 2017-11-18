@@ -6,10 +6,10 @@ module.exports = function (config) {
         singleRun: true,
         frameworks: ['jasmine'],
         files: [
-            'bower_components/angular/angular.js',
-            'bower_components/angular-mocks/angular-mocks.js',
-            'bower_components/fabric/dist/fabric.min.js',
-            'bower_components/threejs/build/three.min.js',
+            'node_modules/angular/angular.js',
+            'node_modules/angular-mocks/angular-mocks.js',
+            'node_modules/fabric/dist/fabric.js',
+            'node_modules/three/build/three.min.js',
 
             'app/**/*.module.js',
             'app/**/*.factory.js',
