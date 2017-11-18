@@ -28,7 +28,7 @@
         function activate() {
             $log.info('Activated - Rendering');
             vm.threeSetup();
-        };
+        }
 
         function threeSetup() {
 
@@ -94,14 +94,16 @@
 
             vm.shapes = mainService.getForms();
 
+            console.log(vm.shapes);
+
         };
 
-        function addPrism(x, y) {
+        function addPrism(color, x, y) {
 
             this.x = x - 280;
             this.y = y - 175;
 
-            var prism = threeService.newPrism();
+            var prism = threeService.newPrism(color);
 
             prism.position.set(this.x / 64, 0.5, this.y / 64);
             prism.rotateY(Math.PI);
@@ -109,12 +111,12 @@
 
         };
 
-        function addBox(x, y) {
+        function addBox(color, x, y) {
 
             this.x = x - 280;
             this.y = y - 175;
 
-            var cube = threeService.newBox();
+            var cube = threeService.newBox(color);
 
             cube.position.set(this.x / 64, 0.5, this.y / 64);
 
@@ -122,12 +124,12 @@
 
         };
 
-        function addCylinder(x, y) {
+        function addCylinder(color, x, y) {
 
             this.x = x - 280;
             this.y = y - 175;
 
-            var cylinder = threeService.newCylinder();
+            var cylinder = threeService.newCylinder(color);
 
             cylinder.position.set(this.x / 64, 0.5, this.y / 64);
             vm.scene.add(cylinder);
@@ -149,27 +151,28 @@
             vm.setShapes();
 
             //add the current shapes
-            var i = 0;
+            i = 0;
 
             for (i; i < vm.shapes.length; i++) {
 
                 if (vm.shapes[i].isType('rect')) {
 
-                    vm.addBox(vm.shapes[i].left, vm.shapes[i].top);
+                    vm.addBox(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top);
 
                 } else if (vm.shapes[i].isType('circle')) {
 
-                    vm.addCylinder(vm.shapes[i].left, vm.shapes[i].top);
+                    vm.addCylinder(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top);
 
                 } else {
 
-                    vm.addPrism(vm.shapes[i].left, vm.shapes[i].top);
+                    vm.addPrism(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top);
 
                 }
 
             }
 
-        };
+        }
 
-    };
+    }
+
 })();

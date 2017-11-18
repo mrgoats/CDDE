@@ -14,9 +14,10 @@
 
         vm.db = 'Drawing';
         vm.canvas;
-        vm.modes = ['Pencil', 'Circle', 'Square', 'Triangle'];
+        vm.modes = ['Circle', 'Square', 'Triangle'];
         vm.drawingDisabled = true;
         vm.btnModeText = 'Enter drawing mode';
+        vm.objectColor = '#000000'
 
         vm.activate = activate;
         vm.toggleDrawing = toggleDrawing;
@@ -57,15 +58,15 @@
 
         function deleteObject() {
 
-            vm.canvas.getActiveObject().remove();
+            fabricService.removeFromCanvas(vm.canvas);
 
         };
 
-        function addRect() {
+        function addRect(color) {
             var opt = {
                 left: 280,
                 top: 175,
-                fill: 'blue',
+                fill: color,
                 width: 20,
                 height: 20,
             };
@@ -76,10 +77,10 @@
 
         };
 
-        function addCircle() {
+        function addCircle(color) {
             var circle = new fabric.Circle({
                 radius: 20,
-                fill: '#aa8cc5',
+                fill: color,
                 left: 280,
                 top: 175
             });
@@ -87,12 +88,12 @@
             mainService.addForm(circle);
         };
 
-        function addTriangle() {
+        function addTriangle(color) {
 
             var triangle = new fabric.Triangle({
                 width: 30,
                 height: 30,
-                fill: '#aa0cc0',
+                fill: color,
                 left: 280,
                 top: 175
             });
@@ -106,14 +107,14 @@
 
             if (vm.drawingTool === 'Square') {
 
-                vm.addRect();
+                vm.addRect(vm.objectColor);
 
             } else if (vm.drawingTool === 'Circle') {
 
-                vm.addCircle();
+                vm.addCircle(vm.objectColor);
 
             } else {
-                vm.addTriangle();
+                vm.addTriangle(vm.objectColor);
             }
 
             var objs = vm.canvas.getObjects();

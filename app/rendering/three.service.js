@@ -60,64 +60,30 @@
 
 
         function newControls(camera, renderer) {
+
             return new THREE.OrbitControls(camera, renderer.domElement);
 
         };
 
-        function newBox() {
+        function newBox(color) {
 
             var geometry = new THREE.BoxGeometry(1, 1, 1);
 
-            var cubeMaterials = [
-                new THREE.MeshBasicMaterial({
-                    color: 0xff0000,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    color: 0x00ff00,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    color: 0x0000ff,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    color: 0xffff00,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    color: 0xff00ff,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                }),
-                new THREE.MeshBasicMaterial({
-                    color: 0x00ffff,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                })
-            ];
+            var material = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.8,
+                side: THREE.DoubleSide
+            });
 
-            // Create a MeshFaceMaterial, which allows the cube to have different materials on each face 
-            var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
-
-            return new THREE.Mesh(geometry, cubeMaterial);
+            return new THREE.Mesh(geometry, material);
         };
 
-        function newPrism() {
+        function newPrism(color) {
 
             var geometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 3);
             var material = new THREE.MeshBasicMaterial({
-                color: 0xaa0cc0,
+                color: color,
                 transparent: true,
                 opacity: 0.8,
                 side: THREE.DoubleSide
@@ -128,11 +94,11 @@
 
         };
 
-        function newCylinder() {
+        function newCylinder(color) {
 
             var geometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
             var material = new THREE.MeshBasicMaterial({
-                color: 0xaa8cc5,
+                color: color,
                 transparent: true,
                 opacity: 0.8,
                 side: THREE.DoubleSide
