@@ -13,12 +13,16 @@
         var vm = this;
 
         vm.values = [];
+        vm.projectData = [];
 
         var service = {
 
             addForm: addForm,
             getForms: getForms,
-            clear: clear
+            removeForm: removeForm,
+            clear: clear,
+            setProjectData: setProjectData,
+            getProjectData: getProjectData
 
         };
 
@@ -28,19 +32,43 @@
 
             return vm.values;
 
-        };
+        }
 
         function addForm(obj) {
 
             vm.values.push(obj);
 
-        };
+        }
+
+        function removeForm(obj) {
+
+            var index = vm.values.indexOf(obj);
+
+            if (index !== -1) {
+                vm.values.splice(index, 1);
+            }
+
+            $log.debug(vm.values);
+        }
 
         function clear() {
+
             vm.values = [];
 
-        };
+        }
 
-    };
+        function setProjectData(projectData) {
+
+            vm.projectData = projectData;
+
+        }
+
+        function getProjectData() {
+
+            return vm.projectData;
+
+        }
+
+    }
 
 })();

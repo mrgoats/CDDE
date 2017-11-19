@@ -6,20 +6,36 @@
         .module('cdde')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['$log', 'mainService'];
+    mainController.$inject = ['$log', 'mainService', '$scope', '$timeout'];
 
-    function mainController($log, mainService) {
+    function mainController($log, mainService, $scope, $timeout) {
 
-        var vm = this;
+        var app = this;
 
-        vm.activate = activate;
-        vm.download = download;
-        vm.downloadJSON = downloadJSON;
+        app.isFileLoaded = false;
 
-        vm.activate();
+        app.activate = activate;
+        app.download = download;
+        app.downloadJSON = downloadJSON;
+        app.showContent = showContent;
+        app.loadProjectData = loadProjectData;
+
+        app.activate();
 
         function activate() {
             $log.info('OK - Main App');
+
+        }
+
+        function showContent($fileContent) {
+
+            app.content = JSON.parse($fileContent);
+
+            $log.debug(app.content);
+
+            mainService.setProjectData(app.content);
+
+            app.isFileLoaded = true;
 
         }
 
@@ -39,7 +55,17 @@
 
             var jsonData = JSON.stringify(shapes);
 
-            vm.download(jsonData, 'project.json', 'application/json');
+            app.download(jsonData, 'project.json', 'application/json');
+
+        }
+
+        function loadProjectData() {
+
+            $timeout(function () {
+                var loader = document.getElementById('projectLoader');
+                loader.click();
+
+            });
 
         }
 

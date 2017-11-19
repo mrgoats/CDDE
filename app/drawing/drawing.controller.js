@@ -13,11 +13,12 @@
         var vm = this;
 
         vm.db = 'Drawing';
-        vm.canvas;
-        vm.modes = ['Circle', 'Square', 'Triangle'];
+        vm.canvas = null;
+        vm.modes = ['Square', 'Circle', 'Triangle'];
         vm.drawingDisabled = true;
         vm.btnModeText = 'Enter drawing mode';
-        vm.objectColor = '#000000'
+        vm.objectColor = '#0000FF';
+        vm.projectData = null;
 
         vm.activate = activate;
         vm.toggleDrawing = toggleDrawing;
@@ -29,6 +30,8 @@
         vm.createObject = createObject;
         vm.fabricSetup = fabricSetup;
         vm.downloadImage = downloadImage;
+        vm.loadProjectData = loadProjectData;
+        vm.updateColor = updateColor;
 
         vm.activate();
 
@@ -50,22 +53,32 @@
 
         function clear() {
 
-            vm.canvas.clear();
             mainService.clear();
+            vm.canvas.clear();
 
         }
 
         function deleteObject() {
 
+            mainService.removeForm(vm.canvas.getActiveObject());
             fabricService.removeFromCanvas(vm.canvas);
 
         }
 
-        function addRect(color) {
+        function addRect(color, left, top) {
+
+            if (left === undefined) {
+                left = 280;
+            }
+
+            if (top === undefined) {
+                top = 175;
+
+            }
 
             var opt = {
-                left: 280,
-                top: 175,
+                left: left,
+                top: top,
                 fill: color,
                 width: 20,
                 height: 20,
@@ -77,25 +90,45 @@
 
         }
 
-        function addCircle(color) {
+        function addCircle(color, left, top) {
+
+            if (left === undefined) {
+                left = 280;
+            }
+
+            if (top === undefined) {
+                top = 175;
+
+            }
+
             var circle = new fabric.Circle({
                 radius: 20,
                 fill: color,
-                left: 280,
-                top: 175
+                left: left,
+                top: top
             });
             vm.canvas.add(circle);
             mainService.addForm(circle);
         }
 
-        function addTriangle(color) {
+        function addTriangle(color, left, top) {
+
+            if (left === undefined) {
+                left = 280;
+            }
+
+            if (top === undefined) {
+                top = 175;
+
+            }
+
 
             var triangle = new fabric.Triangle({
                 width: 30,
                 height: 30,
                 fill: color,
-                left: 280,
-                top: 175
+                left: left,
+                top: top
             });
 
             vm.canvas.add(triangle);
@@ -116,9 +149,6 @@
             } else {
                 vm.addTriangle(vm.objectColor);
             }
-
-            var objs = vm.canvas.getObjects();
-            console.log(objs);
 
         }
 
@@ -149,6 +179,37 @@
 
         }
 
+        function loadProjectData() {
+
+            vm.shapes = mainService.getProjectData();
+
+            vm.clear();
+
+            var i = 0;
+
+            for (i; i < vm.shapes.length; i++) {
+
+                if (vm.shapes[i].type === 'rect') {
+
+                    vm.addRect(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top);
+
+                } else if (vm.shapes[i].type === 'circle') {
+
+                    vm.addCircle(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top);
+
+                } else {
+
+                    vm.addTriangle(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top);
+
+                }
+
+            }
+        }
+
+        function updateColor(color) {
+
+            vm.objectColor = '#' + color.toUpperCase();
+        }
     }
 
 })();

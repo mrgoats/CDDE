@@ -25,26 +25,36 @@
 <body ng-controller="mainController as app">
 
     <div class="row">
-        <div class="six columns view-element" id="drawing" ng-controller="drawingController as vm" ng-keydown="vm.deleteObject($event)">
+        <div class="view-element" id="drawing" ng-controller="drawingController as vm">
+
+            <div class="help-tip">
+                <p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
+            </div>
+
             <p>{{vm.db}}</p>
             <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keydown="vm.deleteObject($event)"></canvas>
+            <br />
+            <a href="#" id="projectLoader" style="visibility: hidden" ng-click="vm.loadProjectData()"></a>
 
-            <label for="drawing-mode-selector">Mode:</label>
-            <input value="submit input" type="color" name="favcolor" value="#ff0000" ng-model="vm.objectColor">
+            <input class="jscolor {closable:true} button" name="favcolor" ng-model="vm.objectColor" ng-change="vm.updateColor(vm.objectColor)">
             <select id="drawing-mode-selector" ng-model="vm.drawingTool" ng-options="item for item in vm.modes" ng-change=""></select>
 
             <button class="button-primary" ng-hide="vm.drawingTool === 'Pencil'" ng-click="vm.createObject()">Add</button>
 
             <button ng-click="vm.clear()">Clear</button>
 
-            <button ng-click="vm.deleteObject()">Delete Selected</button>
+            <button ng-click="vm.deleteObject();">Delete Selected</button>
 
-            <button id="drawing-mode" class="btn btn-info" ng-click="vm.toggleDrawing()">{{vm.btnModeText}}</button>
             <button ng-click="vm.downloadImage()">Export as image</button>
 
         </div>
 
-        <div class="six columns view-element" id="rendering" ng-controller="renderingController as vm">
+        <div class="view-element" id="rendering" ng-controller="renderingController as vm">
+
+            <div class="help-tip">
+                <p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
+            </div>
+
             <p>{{vm.rd}}</p>
             <div id="3dCanvas" style="margin-bottom:5px"></div>
             <button class="button-primary" ng-click="vm.addObject()">Transform</button>
@@ -53,7 +63,15 @@
     </div>
 
     <div class="row">
+
+        <div class="help-tip">
+            <p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
+        </div>
+
         <button ng-click="app.downloadJSON()">Export Project</button>
+        <input type="file" id="files" name="files[]" on-read-file="app.showContent($fileContent)" />
+        <button class="button-primary" style="float:left" ng-show="app.isFileLoaded" ng-click="app.loadProjectData()">Import Project</button>
+
     </div>
 
     <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
@@ -61,6 +79,7 @@
     <script type="text/javascript" src="../node_modules/fabric/dist/fabric.js"></script>
 
     <script type="text/javascript" src="../libs/OrbitControls.js"></script>
+    <script type="text/javascript" src="../libs/jscolor-2.0.4/jscolor.min.js"></script>
 
     <script type="text/javascript" src="main/main.module.js"></script>
 
@@ -69,12 +88,13 @@
 
     <script type="text/javascript" src="rendering/three.factory.js"></script>
     <script type="text/javascript" src="rendering/three.service.js"></script>
+    <script type="text/javascript" src="main/main.service.js"></script>
+    <script type="text/javascript" src="main/filereader.directive.js"></script>
 
     <script type="text/javascript" src="main/main.controller.js"></script>
     <script type="text/javascript" src="drawing/drawing.controller.js"></script>
     <script type="text/javascript" src="rendering/rendering.controller.js"></script>
 
-    <script type="text/javascript" src="main/main.service.js"></script>
 
 </body>
 
