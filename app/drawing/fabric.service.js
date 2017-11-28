@@ -13,9 +13,11 @@
         var service = {
             newCanvas: newCanvas,
             newRectangle: newRectangle,
+            newCircle: newCircle,
+            newTriangle: newTriangle,
             addToCanvas: addToCanvas,
             removeFromCanvas: removeFromCanvas
-        }
+        };
 
         return service;
 
@@ -26,6 +28,16 @@
 
         function newRectangle(options) {
             return new fabric.Rect(options);
+
+        }
+
+        function newCircle(options) {
+            return new fabric.Circle(options);
+
+        }
+
+        function newTriangle(options) {
+            return new fabric.Triangle(options);
 
         }
 

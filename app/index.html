@@ -28,11 +28,11 @@
         <div class="view-element" id="drawing" ng-controller="drawingController as vm">
 
             <div class="help-tip">
-                <p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
+                <p>How to use it: Insert geometric shapes using the tools below the whiteboard.<br /> Color picker and shapes can be selected. Click ADD to insert and TRANSFORM to see the 3D model.<br /> Export and Import projects using the buttons EXPORT PROJECT, selecting a project and then clicking IMPORT PROJECT.<br /> Delete and clear shapes using the buttons DELETE SELECTED and CLEAR.<br /> You can also save your shapes as image clicking on EXPORT AS IMAGE.</p>
             </div>
 
             <p>{{vm.db}}</p>
-            <canvas style="border: 2px solid;" height="350" width="560" id="board" ng-keydown="vm.deleteObject($event)"></canvas>
+            <canvas style="border: 2px solid;" height="350" width="560" id="board"></canvas>
             <br />
             <a href="#" id="projectLoader" style="visibility: hidden" ng-click="vm.loadProjectData()"></a>
 
@@ -51,22 +51,13 @@
 
         <div class="view-element" id="rendering" ng-controller="renderingController as vm">
 
-            <div class="help-tip">
-                <p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
-            </div>
-
             <p>{{vm.rd}}</p>
             <div id="3dCanvas" style="margin-bottom:5px"></div>
             <button class="button-primary" ng-click="vm.addObject()">Transform</button>
         </div>
-
     </div>
 
     <div class="row">
-
-        <div class="help-tip">
-            <p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
-        </div>
 
         <button ng-click="app.downloadJSON()">Export Project</button>
         <input type="file" id="files" name="files[]" on-read-file="app.showContent($fileContent)" />

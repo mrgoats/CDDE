@@ -27,7 +27,7 @@
         function newScene() {
             return new THREE.Scene();
 
-        };
+        }
 
         function newCamera(options) {
             return new THREE.PerspectiveCamera(
@@ -37,14 +37,14 @@
                 1000 // Far clipping pane
             );
 
-        };
+        }
 
         function newRenderer() {
             return new THREE.WebGLRenderer({
                 antialias: true
             });
 
-        };
+        }
 
         function newMesh() {
 
@@ -56,16 +56,15 @@
                 })
             );
 
-        };
-
+        }
 
         function newControls(camera, renderer) {
 
             return new THREE.OrbitControls(camera, renderer.domElement);
 
-        };
+        }
 
-        function newBox(color) {
+        function newBox(color, width, height) {
 
             var geometry = new THREE.BoxGeometry(1, 1, 1);
 
@@ -77,7 +76,7 @@
             });
 
             return new THREE.Mesh(geometry, material);
-        };
+        }
 
         function newPrism(color) {
 
@@ -92,7 +91,7 @@
 
             return new THREE.Mesh(geometry, material);
 
-        };
+        }
 
         function newCylinder(color) {
 
@@ -105,8 +104,7 @@
 
             });
             return new THREE.Mesh(geometry, material);
-        };
+        }
+    }
 
-
-    };
 })();

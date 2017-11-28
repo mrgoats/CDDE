@@ -14,7 +14,8 @@ module.exports = function (config) {
             'app/**/*.module.js',
             'app/**/*.factory.js',
             'app/**/*.service.js',
-            'app/**/*.controller.js',
+           'app/**/*.controller.js',
+            'app/**/*.directive.js',
 
             'app/**/*.spec.js'
 
@@ -30,7 +31,7 @@ module.exports = function (config) {
 
         preprocessors: {
 
-            'app/!(*spec).js': ['coverage']
+            'app/**/!(*spec).js': ['coverage']
         },
         coverageReporter: {
             type: 'html',

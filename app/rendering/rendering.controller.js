@@ -21,7 +21,7 @@
         vm.addBox = addBox;
         vm.addCylinder = addCylinder;
         vm.addPrism = addPrism;
-        vm.setShapes = setShapes;
+        vm.getContainer = getContainer;
 
         vm.activate();
 
@@ -54,9 +54,8 @@
             // Set a near white clear color (default is black)
             renderer.setClearColor(0xfff6e6);
 
-            var container = document.getElementById('3dCanvas');
+            var container = vm.getContainer();
 
-            // Append to the document
             container.appendChild(renderer.domElement);
 
             // A mesh is created from the geometry and material, then added to the scene
@@ -90,35 +89,37 @@
 
         }
 
-        function setShapes() {
+        function setCoordinates(x, y) {
 
-            vm.shapes = mainService.getForms();
+            vm.x = (x - 280);
+            vm.y = (y - 175);
 
-            console.log(vm.shapes);
+            return {
+                x: vm.x,
+                y: vm.y
+            };
 
         }
 
         function addPrism(color, x, y) {
 
-            this.x = x - 280;
-            this.y = y - 175;
+            var coordinates = setCoordinates(x, y);
 
             var prism = threeService.newPrism(color);
 
-            prism.position.set(this.x / 64, 0.5, this.y / 64);
+            prism.position.set(coordinates.x / 36.5, 0.5, coordinates.y / 36.5);
             prism.rotateY(Math.PI);
             vm.scene.add(prism);
 
         }
 
-        function addBox(color, x, y) {
+        function addBox(color, x, y, width, height) {
 
-            this.x = x - 280;
-            this.y = y - 175;
+            var coordinates = setCoordinates(x, y);
 
-            var cube = threeService.newBox(color);
+            var cube = threeService.newBox(color, width, height);
 
-            cube.position.set(this.x / 64, 0.5, this.y / 64);
+            cube.position.set(coordinates.x / 21.5, 0.5, coordinates.y / 21.5);
 
             vm.scene.add(cube);
 
@@ -126,12 +127,11 @@
 
         function addCylinder(color, x, y) {
 
-            this.x = x - 280;
-            this.y = y - 175;
+            var coordinates = setCoordinates(x, y);
 
             var cylinder = threeService.newCylinder(color);
 
-            cylinder.position.set(this.x / 64, 0.5, this.y / 64);
+            cylinder.position.set(coordinates.x / 38, 0.5, coordinates.y / 38);
             vm.scene.add(cylinder);
 
         }
@@ -148,7 +148,9 @@
             }
 
             //get the current shapes on the board
-            vm.setShapes();
+            vm.shapes = mainService.getForms();
+
+            $log.debug(vm.shapes);
 
             //add the current shapes
             i = 0;
@@ -157,7 +159,7 @@
 
                 if (vm.shapes[i].isType('rect')) {
 
-                    vm.addBox(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top);
+                    vm.addBox(vm.shapes[i].fill, vm.shapes[i].left, vm.shapes[i].top, vm.shapes[i].width, vm.shapes[i].height);
 
                 } else if (vm.shapes[i].isType('circle')) {
 
@@ -171,6 +173,11 @@
 
             }
 
+        }
+
+        function getContainer() {
+
+            return document.getElementById('3dCanvas');
         }
 
     }

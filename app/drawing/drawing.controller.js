@@ -15,13 +15,11 @@
         vm.db = 'Drawing';
         vm.canvas = null;
         vm.modes = ['Square', 'Circle', 'Triangle'];
-        vm.drawingDisabled = true;
         vm.btnModeText = 'Enter drawing mode';
         vm.objectColor = '#0000FF';
         vm.projectData = null;
 
         vm.activate = activate;
-        vm.toggleDrawing = toggleDrawing;
         vm.clear = clear;
         vm.deleteObject = deleteObject;
         vm.addRect = addRect;
@@ -76,7 +74,7 @@
 
             }
 
-            var opt = {
+            var options = {
                 left: left,
                 top: top,
                 fill: color,
@@ -84,7 +82,7 @@
                 height: 20,
             };
 
-            var rect = fabricService.newRectangle(opt);
+            var rect = fabricService.newRectangle(options);
             vm.canvas.add(rect);
             mainService.addForm(rect);
 
@@ -101,12 +99,14 @@
 
             }
 
-            var circle = new fabric.Circle({
+            var options = {
                 radius: 20,
                 fill: color,
                 left: left,
                 top: top
-            });
+            };
+
+            var circle = fabricService.newCircle(options);
             vm.canvas.add(circle);
             mainService.addForm(circle);
         }
@@ -122,15 +122,15 @@
 
             }
 
-
-            var triangle = new fabric.Triangle({
+            var options = {
                 width: 30,
                 height: 30,
                 fill: color,
                 left: left,
                 top: top
-            });
+            };
 
+            var triangle = fabricService.newTriangle(options);
             vm.canvas.add(triangle);
             mainService.addForm(triangle);
 
@@ -152,23 +152,7 @@
 
         }
 
-        function toggleDrawing() {
-
-            vm.canvas.isDrawingMode = !vm.canvas.isDrawingMode;
-
-            vm.drawingDisabled = !vm.drawingDisabled;
-
-            if (vm.canvas.isDrawingMode) {
-                vm.btnModeText = 'Leave drawing mode';
-            } else {
-                vm.btnModeText = 'Enter drawing mode';
-            }
-
-        }
-
         function downloadImage() {
-
-            vm.canvas.isDrawingMode = false;
 
             if (!window.localStorage) {
                 alert("This function is not supported by your browser.");

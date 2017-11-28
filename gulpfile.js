@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify');
+var minify = require('gulp-minify');
 
 //gulp.task('js-fef', function () {
 //    //return gulp.src(['file1.js', 'file2.js', 'file3.js'])
@@ -13,15 +14,71 @@ var gulp = require('gulp'),
 //        .pipe(gulp.dest('dist'));
 //});
 
-gulp.task('minify', function () {
+gulp.task('concat-modules', function () {
 
-    return gulp.src('app/*.controller.js')
-        .pipe(concat('my-controllers.js'))
+    gulp.src('app/**/*.module.js')
+        .pipe(concat('amodules.js'))
         .pipe(gulp.dest('dist'))
-        .pipe(rename('ugly-controllers.min.js'))
-        .pipe(uglify())
+
+    //        .pipe(rename('ugly-controllers.min.js'))
+    //        .pipe(uglify())
+    //        .pipe(gulp.dest('dist'));
+
+});
+
+
+gulp.task('concat-controllers', function () {
+
+    gulp.src('app/**/*.controller.js')
+        .pipe(concat('dcontrollers.js'))
+        .pipe(gulp.dest('dist'))
+
+});
+
+gulp.task('concat-services', function () {
+
+    gulp.src('app/**/*.service.js')
+        .pipe(concat('cservices.js'))
+        .pipe(gulp.dest('dist'))
+});
+
+gulp.task('concat-factories', function () {
+
+    gulp.src('app/**/*.factory.js')
+        .pipe(concat('bfactories.js'))
+        .pipe(gulp.dest('dist'))
+});
+
+
+gulp.task('minify', function () {
+    gulp.src('dist/app.js')
+        .pipe(minify({
+            ext: {
+                src: '-debug.js',
+                min: '.js'
+            },
+            exclude: ['tasks'],
+            ignoreFiles: ['.combo.js', '-min.js', '-spec.js']
+        }))
+        .pipe(gulp.dest('dist'))
+});
+
+
+gulp.task('concat', function () {
+
+    gulp.start('concat-modules');
+    gulp.start('concat-controllers');
+    gulp.start('concat-services');
+    gulp.start('concat-factories');
+
+});
+
+gulp.task('compress', function () {
+
+    gulp.src('dist/*.js')
+        .pipe(concat('app.js'))
         .pipe(gulp.dest('dist'));
 
 });
 
-gulp.task('default', ['minify'], function () {});
+gulp.task('default', ['concat', 'compress', 'minify'], function () {});
